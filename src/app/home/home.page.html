@@ -7,14 +7,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      
-    </ion-toolbar>
-  </ion-header>
+  <div>
+    <input placeholder='0' onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="0" maxlength="3" type="text" [(ngModel)]="width" />
+    <input placeholder='0' onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" min="0" maxlength="3" type="text" [(ngModel)]="height" />
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    </div>
+      <div class="square" [style.width]="getWidth()" [style.height]="getHeight()">
+
+          <app-rover [orientation]="'E'" class="rover" [style.left]= "'100px'" [style.bottom]= "'50px'">
+          </app-rover>
+    </div>
 </ion-content>
