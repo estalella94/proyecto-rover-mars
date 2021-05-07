@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HelpersService } from '../../service/helpers.service';
 @Component({
@@ -12,19 +12,46 @@ export class TripPage implements OnInit {
   constructor( private router: Router, public helpers: HelpersService ) {
    }
 
+
+
+   @HostListener('document:keydown', ['$event'])
+
+   // this function handles keyboard events
+
+   handleKeyboardEvent(event: KeyboardEvent) {
+   // handles keyboard activity to make it more arcade
+   console.log('keyboardEvent', event)
+   if (event.code === 'ArrowUp'){
+   console.log('A')
+   this.helpers.arcadeTrip('A')
+
+   }else if(event.code === 'ArrowRight'){
+   console.log('R')
+   this.helpers.arcadeTrip('R')
+
+   }else if(event.code === 'ArrowLeft'){
+   console.log('L')
+   this.helpers.arcadeTrip('L')
+
+   }else{
+
+   }
+   }
+
+
   ngOnInit() {
 
     this.finished = false;
     this.helpers.stateTrip = 'ongoing';
-    
+
     const checkWhenFinished = setInterval(()=>{
       if(this.helpers.stateTrip !== 'ongoing'){
         this.finished = true;
         this.helpers.stateTrip === 'success' ? this.successTrip() : this.failedTrip();
-        
+
         clearInterval(checkWhenFinished);
       }
-      
+
     }, 1000)
   }
 
@@ -35,7 +62,7 @@ export class TripPage implements OnInit {
       // I reset the state of trip to preparing;
       this.helpers.stateTrip = 'preparing';
     })
-    
+
   }
 
   successTrip(){
@@ -48,7 +75,7 @@ export class TripPage implements OnInit {
 
   }
 
-  getWidth(){ 
+  getWidth(){
     // get width of square
     return this.helpers.getSquare().width < 800 ?  `${this.helpers.getSquare().width}px` : '800px';
   }
